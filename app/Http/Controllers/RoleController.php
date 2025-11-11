@@ -59,9 +59,7 @@ class RoleController extends Controller
         $role->save();
 
 
-        foreach ($request->input('permission') as $key => $value) {
-            $role->attachPermission($value);
-        }
+        $role->syncPermissions($request->input('permission'));
 
 
         return redirect()->route('roles.index')
@@ -95,8 +93,8 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $permission = Permission::get();
-        $rolePermissions = DB::table("permission_role")->where("permission_role.role_id",$id)
-            ->lists('permission_role.permission_id','permission_role.permission_id');
+        $rolePermissions = DB::table('permission_role')->where('permission_role.role_id',$id)
+            ->pluck('permission_role.permission_id','permission_role.permission_id')->toArray();
 
  
 
@@ -127,13 +125,9 @@ class RoleController extends Controller
         $role->save();
 
 
-        DB::table("permission_role")->where("permission_role.role_id",$id)
-            ->delete();
+        DB::table('permission_role')->where('permission_role.role_id',$id)->delete();
 
-
-        foreach ($request->input('permission') as $key => $value) {
-            $role->attachPermission($value);
-        }
+        $role->syncPermissions($request->input('permission'));
 
 
         return redirect()->route('roles.index')

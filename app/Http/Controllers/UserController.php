@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
+use Illuminate\Support\Arr;
 use DB;
 use Hash;
 use Session;
@@ -42,7 +43,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::lists('display_name','id'); //echo '<pre>';print_r($roles);exit;
+        $roles = Role::pluck('display_name','id'); //echo '<pre>';print_r($roles);exit;
 		$depts = DB::table('department')->where('status',1)->where('deleted_at','0000-00-00 00:00:00')->select('id','name')->get();
 		$loc = DB::table('location')->where('status',1)->where('deleted_at','0000-00-00 00:00:00')->select('id','name')->get();
         return view('body.users.add',compact('roles','depts'),compact('loc','loc'));
@@ -100,13 +101,13 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::lists('display_name','id');
-        $userRole = $user->roles->lists('id','id')->toArray();
+        $roles = Role::pluck('display_name','id');
+        $userRole = $user->roles->pluck('id','id')->toArray();
 		$depts = DB::table('department')->where('status',1)->where('deleted_at','0000-00-00 00:00:00')->select('id','name')->get();
 		$loc = DB::table('location')->where('status',1)->where('deleted_at','0000-00-00 00:00:00')->select('id','name')->get();
         //return view('users.edit',compact('user','roles','userRole'));
 		
-		$roles = Role::lists('display_name','id'); //echo '<pre>';print_r($roles);exit;
+                $roles = Role::pluck('display_name','id'); //echo '<pre>';print_r($roles);exit;
         return view('body.users.edit',compact('roles','user','userRole','depts','loc'));
     }
 
@@ -129,10 +130,10 @@ class UserController extends Controller
 
 
         $input = $request->all();
-        if(!empty($input['password'])){ 
+        if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
-            $input = array_except($input,array('password'));    
+            $input = Arr::except($input,['password']);
         }
 
 
