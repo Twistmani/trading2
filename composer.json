@@ -10,22 +10,22 @@
     "require": {
         "php": "^8.2",
         "ext-zip": "*",
-        "barryvdh/laravel-dompdf": "^2.0",
+        "laravel/framework": "^10.0",
+        "spatie/laravel-permission": "^6.0",
         "intervention/image": "^2.7",
         "ixudra/curl": "^6.22",
-        "laravel/framework": "^10.0",
         "milon/barcode": "^8.0",
-        "phpoffice/phpspreadsheet": "^1.30",
-        "spatie/laravel-permission": "^6.0"
+        "barryvdh/laravel-dompdf": "^2.0",
+        "phpoffice/phpspreadsheet": "^1.30"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
-        "laravelcollective/html": "^9.0",
         "mockery/mockery": "^1.5",
         "phpunit/phpunit": "^10.0",
         "symfony/css-selector": "^6.0",
         "symfony/dom-crawler": "^6.0",
-        "uxweb/sweet-alert": "^2.0"
+        "uxweb/sweet-alert": "^2.0",
+        "laravelcollective/html": "^9.0"
     },
     "autoload": {
         "classmap": [
