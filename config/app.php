@@ -167,7 +167,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
 		UxWeb\SweetAlert\SweetAlertServiceProvider::class,
-		Maatwebsite\Excel\ExcelServiceProvider::class,
+        App\Providers\ExcelServiceProvider::class,
 		Ixudra\Curl\CurlServiceProvider::class,
 		
 
@@ -234,7 +234,7 @@ return [
 		'Alert' => UxWeb\SweetAlert\SweetAlert::class,
 		'Image' => Intervention\Image\Facades\Image::class,
 		'Form' => Collective\Html\FormFacade::class,
-		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Excel' => App\Facades\Excel::class,
 		'Curl'  => Ixudra\Curl\Facades\Curl::class,
 		'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
 		'PDF' => Barryvdh\DomPDF\Facade::class,
