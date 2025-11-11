@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use EntrustUserTrait;
+    use HasRoles;
     /**
      * The attributes that are mass assignable.
      *
@@ -25,5 +25,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Backwards compatible wrapper to support legacy role assignment calls.
+     *
+     * @param  int|string|\Spatie\Permission\Contracts\Role  $role
+     * @return void
+     */
+    public function attachRole($role): void
+    {
+        $this->assignRole($role);
+    }
 }
 
