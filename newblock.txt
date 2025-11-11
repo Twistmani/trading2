@@ -1,0 +1,76 @@
+	$(document).on('click', '#account_modal .custRow', function(e) { //.accountRow
+		var num = $('#num').val(); var vatasgn = $(this).attr("data-vatassign");
+		var $typeSel = $('#acnttype_'+num);
+		var prevType = $typeSel.val();
+		$('#draccount_'+num).val( $(this).attr("data-name") );
+		$('#draccountid_'+num).val( $(this).attr("data-id") );
+		$('#groupid_'+num).val( (vatasgn==0)?$(this).attr("data-group"):$(this).attr("data-vatassign") );
+		$('#vatamt_'+num).val( $(this).attr("data-vat") );
+		
+		if($(this).attr("data-group")=='PDCR') { 
+			$typeSel.find('option').remove().end().append('<option value="Dr">Dr</option>');
+			$typeSel.val('Dr').trigger('change');
+			var trnurl = "{{ url('journal/set_transactions/') }}";
+			if($('#jeid_'+num).val()!='')
+				$('#trns_'+num).load( trnurl+'/PDC/'+$(this).attr("data-id")+'/'+num+'/'+$('#jeid_'+num).val() );
+			else
+				$('#trns_'+num).load( trnurl+'/PDC/'+$(this).attr("data-id")+'/'+num );
+			/* if( $('#chqdtl_'+num).is(":hidden") )
+				$('#chqdtl_'+num).toggle(); */
+				
+		} else if($(this).attr("data-group")=='PDCI') {
+			$typeSel.find('option').remove().end().append('<option value="Cr">Cr</option>');
+			$typeSel.val('Cr').trigger('change');
+			var trnurl = "{{ url('journal/set_transactions/') }}";
+			if($('#jeid_'+num).val()!='')
+			    $('#trns_'+num).load( trnurl+'/PDC/'+$(this).attr("data-id")+'/'+num+'/'+$('#jeid_'+num).val() );
+			else
+			    $('#trns_'+num).load( trnurl+'/PDC/'+$(this).attr("data-id")+'/'+num );
+			/* if( $('#chqdtl_'+num).is(":hidden") )
+				$('#chqdtl_'+num).toggle(); */
+				
+		} else if($(this).attr("data-group")=='BANK') { 
+			$typeSel.find('option').remove().end().append('<option value="Dr">Dr</option>');
+			$typeSel.val('Dr').trigger('change');
+			var trnurl = "{{ url('journal/set_transactions/') }}";
+			
+			if($('#jeid_'+num).val()!='')
+			    $('#trns_'+num).load( trnurl+'/BANKJ/'+$(this).attr("data-id")+'/'+num+'/'+$('#jeid_'+num).val() );
+			else
+			    $('#trns_'+num).load( trnurl+'/BANKJ/'+$(this).attr("data-id")+'/'+num );
+			
+		} else {
+			$('#trns_'+num+' .pdcfm').hide();
+			$('#trns_'+num+' .nopdc1').attr("style", "width:17%;");
+			$('#trns_'+num+' .nopdc2').attr("style", "width:25%;");
+			$('#trns_'+num+' .nopdc3').attr("style", "width:15%;");
+			$('#trns_'+num+' .nopdc4').attr("style", "width:8%;");
+			$('#trns_'+num+' .nopdc5').attr("style", "width:13%;");
+			$('#trns_'+num+' .nopdc6').attr("style", "width:17%;");
+			
+			$typeSel.find('option').remove().end().append('<option value="Dr">Dr</option><option value="Cr">Cr</option>');
+			if(prevType && $typeSel.find('option[value="'+prevType+'"]').length){
+				$typeSel.val(prevType);
+			} else {
+				$typeSel.val('Dr');
+			}
+			$typeSel.trigger('change');
+		}
+		
+		if( $(this).attr("data-group")=='SUPPLIER' || $(this).attr("data-group")=='CUSTOMER' || $(this).attr("data-group")=='VATIN' || $(this).attr("data-group")=='VATOUT') {// group.id
+			$('#refdata_'+num).html('<input type="text" id="ref_'+num+'" name="reference[]" class="form-control ref-invoice" autocomplete="off" data-toggle="modal" data-target="#reference_modal">');
+		} else {// group.id
+			var nm = num - 1;
+			if(nm > 0)
+				var refval = $('#ref_'+nm).val();
+			else
+				refval = '';
+			$('#refdata_'+num).html('<input type="text" id="ref_'+num+'" value="'+refval+'" name="reference[]" class="form-control">');
+		}
+		
+		if( $(this).attr("data-vatassign")=='1') {// group.id
+			//$('#trndtl_'+num).toggle();
+		}
+		
+		getNetTotal();
+	});
