@@ -1,2 +1,0 @@
-@extends('printinvoice')
- @yield('content')

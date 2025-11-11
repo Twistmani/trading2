@@ -11,7 +11,7 @@
         "spatie/laravel-permission": "^6.0",
         "intervention/image": "^2.7",
         "ixudra/curl": "^6.22",
-        "milon/barcode": "^8.0",
+        "milon/barcode": "^12.0",
         "barryvdh/laravel-dompdf": "^2.0",
         "phpoffice/phpspreadsheet": "^1.30"
     },
@@ -22,7 +22,7 @@
         "symfony/css-selector": "^6.0",
         "symfony/dom-crawler": "^6.0",
         "uxweb/sweet-alert": "^2.0",
-        "laravelcollective/html": "^9.0"
+        "rdx/laravelcollective-html": "*"
     },
     "autoload": {
         "classmap": [
