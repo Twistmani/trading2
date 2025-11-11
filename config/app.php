@@ -95,22 +95,36 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'stimulsoft_ver' => env('STIMULSOFT_VER', 'default'),
+
     /*
     |--------------------------------------------------------------------------
-    | Logging Configuration
+    | Faker Locale
     |--------------------------------------------------------------------------
     |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
+    | This locale will be used by the Faker PHP library when generating fake
+    | data for your database seeds. For example, this will be used to get
+    | localized telephone numbers, street address information and more.
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
-    
-    'stimulsoft_ver' => env('STIMULSOFT_VER', 'default'),
+    'faker_locale' => env('FAKER_LOCALE', 'en_US'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Mode Driver
+    |--------------------------------------------------------------------------
+    |
+    | These configuration options determine the driver used to determine and
+    | manage Laravel's "maintenance mode" status. The "cache" driver will
+    | allow maintenance mode to be controlled across multiple machines.
+    |
+    */
+
+    'maintenance' => [
+        'driver' => env('MAINTENANCE_DRIVER', 'file'),
+        'store' => env('MAINTENANCE_STORE', null),
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -140,6 +154,8 @@ return [
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
+        Illuminate\Log\LogServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
@@ -149,7 +165,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Zizaco\Entrust\EntrustServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 		UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 		Maatwebsite\Excel\ExcelServiceProvider::class,
 		Ixudra\Curl\CurlServiceProvider::class,
@@ -214,7 +230,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 		'Input' => Illuminate\Support\Facades\Input::class,
 		'Alert' => UxWeb\SweetAlert\SweetAlert::class,
 		'Image' => Intervention\Image\Facades\Image::class,

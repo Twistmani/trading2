@@ -14,7 +14,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
 		//Added by Abi
 		\Illuminate\Session\Middleware\StartSession::class,
 		\Illuminate\View\Middleware\ShareErrorsFromSession::class,
@@ -52,9 +52,9 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-		'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
-		'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
-		'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+                'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+                'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+                'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
 
 		
     ];
