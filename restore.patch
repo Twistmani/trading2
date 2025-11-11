@@ -1,0 +1,43 @@
+*** Begin Patch
+*** Update File: resources/views/body/paymentvoucher/edit.blade.php
+@@
+-  // validate rows before allowing add
+-  .on('click', '.btn-add-item', function(e){
+-    e.preventDefault();
+-
+-    if (typeof window.validateAllRows === 'function'){
+-      if(!window.validateAllRows()){
+-        var  = .is-invalid:visible.first();
+-        if(!.length){
+-           = label.text-danger:visible.first();
+-        }
+-        if(.length){
+-          html, body.animate({ scrollTop: Math.max(.offset().top - 80, 0) }, 300);
+-          if(.is(':input')) .focus();
+-          else {
+-            var  = .closest('.form-group').find('.is-invalid:visible:first');
+-            if(.length){ .focus(); }
+-          }
+-        }
+-        return false;
+-      }
+-    }
+-
+-    var lastIdx = rowIdxFrom(this);
+-    if (!validateRow(lastIdx)){ return false; }
+-
+-    // prevent double-click race by momentarily disabling
+-    var  = .itemdivPrnt .itemdivChld:last;
+-    .find('.btn-add-item').prop('disabled', true).addClass('disabled');
+-    setTimeout(function(){ .find('.btn-add-item').prop('disabled', false).removeClass('disabled'); }, 200);
+-
+-    // trigger the original handler logic by simulating click after validation
+-    .off('click.addRowTemp').on('click.addRowTemp', function(ev){ ev.preventDefault(); }).click();
+-  });
++  // validate last row before allowing add
++  .on('click', '.btn-add-item', function(e){
++    var lastIdx = rowIdxFrom(this);
++    if (!validateRow(lastIdx)){ e.preventDefault(); return false; }
++  });
+*** End Patch
+
