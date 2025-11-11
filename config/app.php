@@ -166,7 +166,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-		UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         App\Providers\ExcelServiceProvider::class,
 		Ixudra\Curl\CurlServiceProvider::class,
 		
@@ -180,7 +179,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 		App\Providers\RepositoryServiceProvider::class,
 		Intervention\Image\ImageServiceProvider::class,
-		Collective\Html\HtmlServiceProvider::class,
 		Milon\Barcode\BarcodeServiceProvider::class,
 		Barryvdh\DomPDF\ServiceProvider::class,
 
@@ -231,9 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 		'Input' => Illuminate\Support\Facades\Input::class,
-		'Alert' => UxWeb\SweetAlert\SweetAlert::class,
 		'Image' => Intervention\Image\Facades\Image::class,
-		'Form' => Collective\Html\FormFacade::class,
         'Excel' => App\Facades\Excel::class,
 		'Curl'  => Ixudra\Curl\Facades\Curl::class,
 		'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
